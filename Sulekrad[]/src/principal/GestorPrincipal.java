@@ -38,8 +38,8 @@ public class GestorPrincipal {
 
 		// System.setProperty("sun.java2d.transaccel", "True");
 		
-		//System.setProperty("sun.java2d.d3d", "true");
-		//System.setProperty("sun.java2d.ddforcevram", "true");
+		//System.setProperty("sun.java2d.d3d", "True");
+		//System.setProperty("sun.java2d.ddforcevram", "True");
 		//System.setProperty("sun.java2d.transaccel", "true");
 
 		GestorPrincipal gp = new GestorPrincipal("Sulekrad", Constantes.ANCHO_PANTALLA_COMPLETA,
