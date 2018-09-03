@@ -3,18 +3,12 @@ package principal.control;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
-
-import principal.GestorPrincipal;
-import principal.herramientas.CargadorRecursos;
 import principal.sonido.Sonido;
 
 public class Teclado implements KeyListener {
-	
+
 	Sonido bang = new Sonido("/sonidos/disparo.wav");
-	
+
 	public Tecla arriba = new Tecla();
 	public Tecla abajo = new Tecla();
 	public Tecla izquierda = new Tecla();
@@ -25,7 +19,9 @@ public class Teclado implements KeyListener {
 	public boolean corriendo = false;
 	public boolean debug = false;
 	public boolean inventarioActivo = false;
+	public boolean pausa = false;
 
+	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
@@ -55,11 +51,15 @@ public class Teclado implements KeyListener {
 		case KeyEvent.VK_P:
 			atacando = true;
 			break;
+		case KeyEvent.VK_ENTER:
+			pausa = !pausa;
+			break;
 		case KeyEvent.VK_ESCAPE:
 			System.exit(0);
 		}
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
@@ -86,6 +86,7 @@ public class Teclado implements KeyListener {
 		}
 	}
 
+	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 }

@@ -3,6 +3,7 @@ package principal.maquinaestado;
 import java.awt.Graphics;
 
 import principal.graficos.SuperficieDibujo;
+import principal.maquinaestado.estados.enpausa.EnPausa;
 import principal.maquinaestado.estados.juego.GestorJuego;
 import principal.maquinaestado.estados.menujuego.GestorMenu;
 
@@ -17,9 +18,10 @@ public class GestorEstados {
 	}
 
 	private void iniciarEstados(final SuperficieDibujo sd) {
-		estados = new EstadoJuego[2];
+		estados = new EstadoJuego[3];
 		estados[0] = new GestorJuego();
 		estados[1] = new GestorMenu(sd);
+		estados[2] = new EnPausa(sd);
 		// Añadir e iniciar los demás estados a medida que los creemos
 	}
 

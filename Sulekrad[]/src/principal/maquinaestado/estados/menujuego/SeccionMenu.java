@@ -78,7 +78,7 @@ public abstract class SeccionMenu {
 				barraPeso.width / (ElementosPrincipales.jugador.limitePeso / ElementosPrincipales.jugador.pesoActual),
 				barraPeso.height - 2);
 
-		DibujoDebug.dibujarString(g, "Weight", barraPeso.x - 30, barraPeso.y + 7, Color.black);
+		DibujoDebug.dibujarString(g, "Peso", barraPeso.x - 30, barraPeso.y + 7, Color.black);
 		DibujoDebug.dibujarRectanguloRelleno(g, barraPeso, Color.gray);
 		DibujoDebug.dibujarRectanguloRelleno(g, contenidoBarra, em.COLOR_BANNER_SUPERIOR);
 	}

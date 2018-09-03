@@ -3,11 +3,14 @@ package principal.interfaz_usuario;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import principal.Constantes;
 import principal.ElementosPrincipales;
 import principal.entes.Jugador;
+import principal.herramientas.CargadorRecursos;
 import principal.herramientas.DibujoDebug;
+import principal.inventario.armas.Desarmado;
 
 public class MenuInferior {
 
@@ -15,14 +18,16 @@ public class MenuInferior {
 	private Rectangle bordeAreaInventario;
 
 	private Color negroDesaturado;
+	private Color negroOscuro;
+	private Color negroClaro;
+	private Color marronOscuro;
+	private Color marronClaro;
 	private Color rojoClaro;
 	private Color rojoOscuro;
-	private Color azulClaro;
-	private Color azulOscuro;
-	private Color verdeClaro;
-	private Color verdeOscuro;
-	private Color rosaClaro;
-	private Color rosaOscuro;
+	private Color naranjaClaro;
+	private Color naranjaOscuro;
+
+	private BufferedImage img = CargadorRecursos.cargarImagenCompatibleTranslucida(Constantes.RUTA_ARMAS);
 
 	public MenuInferior() {
 
@@ -30,15 +35,15 @@ public class MenuInferior {
 		areaInventario = new Rectangle(0, Constantes.ALTO_JUEGO - altoMenu, Constantes.ANCHO_JUEGO, altoMenu);
 		bordeAreaInventario = new Rectangle(areaInventario.x, areaInventario.y - 1, areaInventario.width, 1);
 
-		negroDesaturado = new Color(169,169,169);
-		rojoClaro = new Color(0, 0, 0);
-		rojoOscuro = new Color(40, 40, 40);
-		azulClaro = new Color(90, 56, 38);
-		azulOscuro = new Color(93, 41, 5);
-		verdeClaro = new Color(250, 0, 0);
-		verdeOscuro = new Color(100, 11, 10);
-		rosaClaro = new Color(208, 65, 9);
-		rosaOscuro = new Color(193, 88, 14);
+		negroDesaturado = new Color(169, 169, 169);
+		negroOscuro = new Color(0, 0, 0);
+		negroClaro = new Color(40, 40, 40);
+		marronOscuro = new Color(90, 56, 38);
+		marronClaro = new Color(93, 41, 5);
+		rojoClaro = new Color(250, 0, 0);
+		rojoOscuro = new Color(100, 11, 10);
+		naranjaClaro = new Color(208, 65, 9);
+		naranjaOscuro = new Color(193, 88, 14);
 	}
 
 	public void dibujar(final Graphics g) {
@@ -49,8 +54,16 @@ public class MenuInferior {
 		dibujarBarraExperiencia(g, 75);
 		dibujarRanurasObjetos(g);
 		dibujarPuntos(g);
+		dibujarObjetoEnRanura(g);
 	}
-	
+
+	private void dibujarObjetoEnRanura(Graphics g) {
+		if (!(ElementosPrincipales.jugador.obtenerAlmacenEquipo().obtenerArma1() instanceof Desarmado)) {
+			DibujoDebug.dibujarImagen(g, img, areaInventario.x + 220, areaInventario.y + 4);
+		}
+
+	}
+
 	private void dibujarPuntos(final Graphics g) {
 		final int medidaVertical = 4;
 		DibujoDebug.dibujarString(g, "Puntos: " + ElementosPrincipales.jugador.puntos, areaInventario.x + 10,
@@ -67,9 +80,9 @@ public class MenuInferior {
 		final int anchoTotal = 100;
 
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical, anchoTotal,
-				medidaVertical, rojoClaro);
+				medidaVertical, negroOscuro);
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 2,
-				anchoTotal, medidaVertical, rojoOscuro);
+				anchoTotal, medidaVertical, negroClaro);
 
 		g.setColor(Color.white);
 		DibujoDebug.dibujarString(g, "VIT", areaInventario.x + 10, areaInventario.y + medidaVertical * 3);
@@ -81,9 +94,9 @@ public class MenuInferior {
 		final int anchoTotal = 100;
 
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 4,
-				anchoTotal, medidaVertical, azulClaro);
+				anchoTotal, medidaVertical, marronOscuro);
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 5,
-				anchoTotal, medidaVertical, azulOscuro);
+				anchoTotal, medidaVertical, marronClaro);
 
 		g.setColor(Color.white);
 		DibujoDebug.dibujarString(g, "POW", areaInventario.x + 10, areaInventario.y + medidaVertical * 6);
@@ -96,9 +109,9 @@ public class MenuInferior {
 		final int ancho = anchoTotal * ElementosPrincipales.jugador.obtenerResistencia() / Jugador.RESISTENCIA_TOTAL;
 
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 7, ancho,
-				medidaVertical, verdeClaro);
+				medidaVertical, rojoClaro);
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 8, ancho,
-				medidaVertical, verdeOscuro);
+				medidaVertical, rojoOscuro);
 
 		g.setColor(Color.white);
 		DibujoDebug.dibujarString(g, "RST", areaInventario.x + 10, areaInventario.y + medidaVertical * 9);
@@ -112,9 +125,9 @@ public class MenuInferior {
 		final int ancho = anchoTotal * experiencia / anchoTotal;
 
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 10, ancho,
-				medidaVertical, rosaClaro);
+				medidaVertical, naranjaClaro);
 		DibujoDebug.dibujarRectanguloRelleno(g, areaInventario.x + 35, areaInventario.y + medidaVertical * 11, ancho,
-				medidaVertical, rosaOscuro);
+				medidaVertical, naranjaOscuro);
 
 		g.setColor(Color.white);
 		DibujoDebug.dibujarString(g, "EXP", areaInventario.x + 10, areaInventario.y + medidaVertical * 12);

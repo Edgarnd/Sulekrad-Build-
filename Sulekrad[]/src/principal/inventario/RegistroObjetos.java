@@ -1,7 +1,7 @@
 package principal.inventario;
 
 import principal.inventario.armas.Desarmado;
-import principal.inventario.armas.Pistola;
+import principal.inventario.armas.Arco;
 import principal.inventario.consumibles.Consumible;
 
 public class RegistroObjetos {
@@ -32,7 +32,7 @@ public class RegistroObjetos {
 			break;
 		// 500 - 599: armas
 		case 500:
-			objeto = new Pistola(idObjeto, "Default Black", "", 1, 3, false, true, 0.4);
+			objeto = new Arco(idObjeto, "Default Black", "", 1, 3, false, true, 0.4);
 			break;
 		case 599:
 			objeto = new Desarmado(idObjeto, "Desarmado", "", 0, 0);

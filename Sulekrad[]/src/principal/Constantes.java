@@ -8,14 +8,14 @@ public class Constantes {
 
 	public static final int LADO_SPRITE = 32;
 
-	public static int ANCHO_JUEGO = 640;
-	public static int ALTO_JUEGO = 360;
+	public static int ANCHO_JUEGO = 640; // 640
+	public static int ALTO_JUEGO = 360; // 360
 
 	// public static int ANCHO_PANTALLA_COMPLETA = 1920;
 	// public static int ALTO_PANTALLA_COMPLETA = 1080;
 
-	public static int ANCHO_PANTALLA_COMPLETA = 1280;
-	public static int ALTO_PANTALLA_COMPLETA = 720;
+	public static int ANCHO_PANTALLA_COMPLETA = 1280; // 1280
+	public static int ALTO_PANTALLA_COMPLETA = 720; // 720
 
 	// 4:3
 
@@ -33,7 +33,6 @@ public class Constantes {
 	public static String RUTA_PERSONAJE = "/imagenes/hojasPersonajes/2.png";
 	public static String RUTA_PERSONAJE_PISTOLA = "/imagenes/hojasPersonajes/4.png";
 	public static String RUTA_ICONO_VENTANA = "/imagenes/iconos/iconoVentana.png";
-	public static String RUTA_LOGOTIPO = "/imagenes/iconos/logotipo.png";
 	public static String RUTA_OBJETOS = "/imagenes/hojasObjetos/1.png";
 	public static String RUTA_OBJETOS_ARMAS = "/imagenes/hojasObjetos/armas.png";
 	public static String RUTA_ENEMIGOS = "/imagenes/hojasEnemigos/";

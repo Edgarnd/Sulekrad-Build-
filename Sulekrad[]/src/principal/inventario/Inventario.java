@@ -22,7 +22,7 @@ public class Inventario {
 			}
 		}
 	}
-	
+
 	public void recogerObjetos(final ObjetoUnicoTiled objetoUnico) {
 		if (objetoExiste(objetoUnico.obtenerObjeto())) {
 			incrementarObjeto(objetoUnico.obtenerObjeto(), objetoUnico.obtenerObjeto().obtenerCantidad());

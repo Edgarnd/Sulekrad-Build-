@@ -8,6 +8,7 @@ import principal.sonido.Sonido;
 
 public class GestorPrincipal {
 	private boolean enFuncionamiento = false;
+
 	private String titulo;
 	private int ancho;
 	private int alto;
@@ -21,10 +22,11 @@ public class GestorPrincipal {
 
 	private Sonido musica = new Sonido("/sonidos/musica.wav");
 
-	private GestorPrincipal(final String titulo, final int ancho, final int alto) {
+	public GestorPrincipal(final String titulo, final int ancho, final int alto) {
 		this.titulo = titulo;
 		this.ancho = ancho;
 		this.alto = alto;
+
 	}
 
 	public static void main(String[] args) {
@@ -37,22 +39,24 @@ public class GestorPrincipal {
 		 */
 
 		// System.setProperty("sun.java2d.transaccel", "True");
-		
-		//System.setProperty("sun.java2d.d3d", "True");
-		//System.setProperty("sun.java2d.ddforcevram", "True");
-		//System.setProperty("sun.java2d.transaccel", "true");
+
+		// System.setProperty("sun.java2d.d3d", "True");
+		// System.setProperty("sun.java2d.ddforcevram", "True");
+		// System.setProperty("sun.java2d.transaccel", "true");
 
 		GestorPrincipal gp = new GestorPrincipal("Sulekrad", Constantes.ANCHO_PANTALLA_COMPLETA,
 				Constantes.ALTO_PANTALLA_COMPLETA);
 
 		gp.iniciarJuego();
 		gp.iniciarBuclePrincipal();
+
 	}
 
 	private void iniciarJuego() {
 		enFuncionamiento = true;
 		inicializar();
 		musica.repetir();
+
 	}
 
 	private void inicializar() {
@@ -105,10 +109,14 @@ public class GestorPrincipal {
 	}
 
 	private void actualizar() {
+		if (GestorControles.teclado.pausa) {
+			ge.cambiarEstadoActual(0);
+		} else {
+			ge.cambiarEstadoActual(2);
+		}
+
 		if (GestorControles.teclado.inventarioActivo) {
 			ge.cambiarEstadoActual(1);
-		} else {
-			ge.cambiarEstadoActual(0);
 		}
 
 		ge.actualizar();
@@ -126,4 +134,5 @@ public class GestorPrincipal {
 	public static int obtenerAPS() {
 		return aps;
 	}
+
 }

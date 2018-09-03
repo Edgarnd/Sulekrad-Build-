@@ -56,7 +56,8 @@ public class SuperficieDibujo extends Canvas {
 		DibujoDebug.reiniciarContadorObjetos();
 
 		g.setFont(Constantes.FUENTE_PIXEL);
-		DibujoDebug.dibujarRectanguloRelleno(g, 0, 0, Constantes.ANCHO_PANTALLA_COMPLETA, Constantes.ALTO_PANTALLA_COMPLETA, Color.black);
+		DibujoDebug.dibujarRectanguloRelleno(g, 0, 0, Constantes.ANCHO_PANTALLA_COMPLETA,
+				Constantes.ALTO_PANTALLA_COMPLETA, Color.black);
 
 		if (Constantes.FACTOR_ESCALADO_X != 1.0 || Constantes.FACTOR_ESCALADO_Y != 1.0) {
 			g.scale(Constantes.FACTOR_ESCALADO_X, Constantes.FACTOR_ESCALADO_Y);
@@ -69,15 +70,17 @@ public class SuperficieDibujo extends Canvas {
 		DibujoDebug.dibujarString(g, "FPS: " + GestorPrincipal.obtenerFPS(), 20, 20);
 		DibujoDebug.dibujarString(g, "APS: " + GestorPrincipal.obtenerAPS(), 20, 30);
 
-		//DatosDebug.enviarDato("ESCALA X: " + Constantes.FACTOR_ESCALADO_X);
-		//DatosDebug.enviarDato("ESCALA Y: " + Constantes.FACTOR_ESCALADO_Y);
-		//DatosDebug.enviarDato("OPF: " + DibujoDebug.obtenerContadorObjetos());
+		// DatosDebug.enviarDato("ESCALA X: " + Constantes.FACTOR_ESCALADO_X);
+		// DatosDebug.enviarDato("ESCALA Y: " + Constantes.FACTOR_ESCALADO_Y);
+		// DatosDebug.enviarDato("OPF: " + DibujoDebug.obtenerContadorObjetos());
 
 		if (GestorControles.teclado.debug) {
 			DatosDebug.dibujarDatos(g);
 		} else {
 			DatosDebug.vaciarDatos();
 		}
+
+		// Talves aqui
 
 		Toolkit.getDefaultToolkit().sync();
 

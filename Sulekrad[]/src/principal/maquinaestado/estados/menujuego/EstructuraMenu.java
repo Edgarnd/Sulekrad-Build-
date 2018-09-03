@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import principal.Constantes;
+import principal.control.GestorControles;
 import principal.herramientas.DibujoDebug;
 
 public class EstructuraMenu {
@@ -29,8 +30,8 @@ public class EstructuraMenu {
 
 		BANNER_SUPERIOR = new Rectangle(0, 0, Constantes.ANCHO_JUEGO, 20);
 		BANNER_LATERAL = new Rectangle(0, BANNER_SUPERIOR.height, 140, Constantes.ALTO_JUEGO - BANNER_SUPERIOR.height);
-		FONDO = new Rectangle(BANNER_LATERAL.x + BANNER_LATERAL.width, BANNER_LATERAL.y, Constantes.ANCHO_JUEGO - BANNER_LATERAL.width,
-				Constantes.ALTO_JUEGO - BANNER_SUPERIOR.height);
+		FONDO = new Rectangle(BANNER_LATERAL.x + BANNER_LATERAL.width, BANNER_LATERAL.y,
+				Constantes.ANCHO_JUEGO - BANNER_LATERAL.width, Constantes.ALTO_JUEGO - BANNER_SUPERIOR.height);
 
 		MARGEN_HORIZONTAL_ETIQUETAS = 20;
 		MARGEN_VERTICAL_ETIQUETAS = 20;
@@ -46,5 +47,10 @@ public class EstructuraMenu {
 		DibujoDebug.dibujarRectanguloRelleno(g, BANNER_SUPERIOR, COLOR_BANNER_SUPERIOR);
 		DibujoDebug.dibujarRectanguloRelleno(g, BANNER_LATERAL, COLOR_BANNER_LATERAL);
 		DibujoDebug.dibujarRectanguloRelleno(g, FONDO, COLOR_FONDO);
+		g.setColor(Color.WHITE);
+		if (GestorControles.teclado.debug) {
+			DibujoDebug.dibujarString(g, "Creado por Edgar Rend", 10, 340);
+		}
+
 	}
 }

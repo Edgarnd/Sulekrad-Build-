@@ -1,6 +1,7 @@
 package principal.maquinaestado.estados.menujuego;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import principal.graficos.SuperficieDibujo;
 import principal.maquinaestado.EstadoJuego;
@@ -27,28 +28,29 @@ public class GestorMenu implements EstadoJuego {
 				estructuraMenu.BANNER_LATERAL.y + estructuraMenu.MARGEN_VERTICAL_ETIQUETAS,
 				estructuraMenu.ANCHO_ETIQUETAS, estructuraMenu.ALTO_ETIQUETAS);
 
-		secciones[0] = new MenuInventario("Inventary", etiquetaInventario, estructuraMenu);
+		secciones[0] = new MenuInventario("Inventario", etiquetaInventario, estructuraMenu);
 
 		final Rectangle etiquetaEquipo = new Rectangle(
 				estructuraMenu.BANNER_LATERAL.x + estructuraMenu.MARGEN_HORIZONTAL_ETIQUETAS,
 				etiquetaInventario.y + etiquetaInventario.height + estructuraMenu.MARGEN_VERTICAL_ETIQUETAS,
 				estructuraMenu.ANCHO_ETIQUETAS, estructuraMenu.ALTO_ETIQUETAS);
 
-		secciones[1] = new MenuEquipo("Equip", etiquetaEquipo, estructuraMenu);
+		secciones[1] = new MenuEquipo("Equipo", etiquetaEquipo, estructuraMenu);
 
 		seccionActual = secciones[0];
 	}
 
+	@Override
 	public void actualizar() {
 		for (int i = 0; i < secciones.length; i++) {
 			if (sd.obtenerRaton().obtenerClick() && sd.obtenerRaton().obtenerRectanguloPosicion()
 					.intersects(secciones[i].obtenerEtiquetaMenuEscalada())) {
-                if (secciones[i] instanceof  MenuEquipo) {
-                    MenuEquipo seccion = (MenuEquipo) secciones[i];
-                    if (seccion.objetoSeleccionado != null) {
-                        seccion.eliminarObjetoSeleccionado();
-                    }
-                }
+				if (secciones[i] instanceof MenuEquipo) {
+					MenuEquipo seccion = (MenuEquipo) secciones[i];
+					if (seccion.objetoSeleccionado != null) {
+						seccion.eliminarObjetoSeleccionado();
+					}
+				}
 
 				seccionActual = secciones[i];
 			}
@@ -57,6 +59,7 @@ public class GestorMenu implements EstadoJuego {
 		seccionActual.actualizar();
 	}
 
+	@Override
 	public void dibujar(final Graphics g) {
 		estructuraMenu.dibujar(g);
 

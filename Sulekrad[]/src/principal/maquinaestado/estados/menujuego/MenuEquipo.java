@@ -44,6 +44,7 @@ public class MenuEquipo extends SeccionMenu {
 		super(nombreSeccion, etiquetaMenu, em);
 	}
 
+	@Override
 	public void actualizar() {
 		actualizarPosicionesMenu();
 		actualizarSeleccionRaton();
@@ -84,10 +85,10 @@ public class MenuEquipo extends SeccionMenu {
 			}
 		} else if (posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(panelEquipo))) {
 			if (objetoSeleccionado != null && objetoSeleccionado instanceof Arma
-                    && GestorPrincipal.sd.obtenerRaton().obtenerClick()
-                    && posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(contenedorArma))) {
-                ElementosPrincipales.jugador.obtenerAlmacenEquipo().cambiarArma1((Arma) objetoSeleccionado);
-                objetoSeleccionado = null;
+					&& GestorPrincipal.sd.obtenerRaton().obtenerClick()
+					&& posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(contenedorArma))) {
+				ElementosPrincipales.jugador.obtenerAlmacenEquipo().cambiarArma1((Arma) objetoSeleccionado);
+				objetoSeleccionado = null;
 			}
 		} else if (posicionRaton.intersects(EscaladorElementos.escalarRectanguloArriba(panelAtributos))) {
 
@@ -108,6 +109,7 @@ public class MenuEquipo extends SeccionMenu {
 		}
 	}
 
+	@Override
 	public void dibujar(Graphics g, SuperficieDibujo sd, EstructuraMenu em) {
 		dibujarLimitePeso(g, em);
 
@@ -120,9 +122,9 @@ public class MenuEquipo extends SeccionMenu {
 	}
 
 	private void dibujarPaneles(final Graphics g) {
-		dibujarPanelObjetos(g, panelObjetos, titularPanelObjetos, "Equippables");
-		dibujarPanelEquipo(g, panelEquipo, titularPanelEquipo, "Equip");
-		dibujarPanelAtributos(g, panelAtributos, titularPanelAtributos, "Attributes");
+		dibujarPanelObjetos(g, panelObjetos, titularPanelObjetos, "Equipables");
+		dibujarPanelEquipo(g, panelEquipo, titularPanelEquipo, "Equipo");
+		dibujarPanelAtributos(g, panelAtributos, titularPanelAtributos, "Atributos");
 	}
 
 	private void dibujarPanelObjetos(final Graphics g, final Rectangle panel, final Rectangle titularPanel,
@@ -188,16 +190,17 @@ public class MenuEquipo extends SeccionMenu {
 		DibujoDebug.dibujarRectanguloRelleno(g, etiquetaArma);
 		DibujoDebug.dibujarRectanguloContorno(g, contenedorArma);
 
-        if (!(ElementosPrincipales.jugador.obtenerAlmacenEquipo().obtenerArma1() instanceof Desarmado)) {
-            Point coordenadaImagen = new Point(contenedorArma.x + contenedorArma.width / 2 - Constantes.LADO_SPRITE / 2,
-                    contenedorArma.y);
+		if (!(ElementosPrincipales.jugador.obtenerAlmacenEquipo().obtenerArma1() instanceof Desarmado)) {
+			Point coordenadaImagen = new Point(contenedorArma.x + contenedorArma.width / 2 - Constantes.LADO_SPRITE / 2,
+					contenedorArma.y);
 
-            DibujoDebug.dibujarImagen(g, ElementosPrincipales.jugador.obtenerAlmacenEquipo().obtenerArma1().obtenerSprite().obtenerImagen(),
-                    coordenadaImagen);
-        }
+			DibujoDebug.dibujarImagen(g,
+					ElementosPrincipales.jugador.obtenerAlmacenEquipo().obtenerArma1().obtenerSprite().obtenerImagen(),
+					coordenadaImagen);
+		}
 
 		g.setColor(Color.white);
-		DibujoDebug.dibujarString(g, "Weapon",
+		DibujoDebug.dibujarString(g, " Arma",
 				new Point(etiquetaArma.x + etiquetaArma.width / 2 - MedidorStrings.medirAnchoPixeles(g, "Weapon") / 2,
 						etiquetaArma.y + etiquetaArma.height / 2 + MedidorStrings.medirAltoPixeles(g, "Weapon") / 2));
 		// dibujar arma equipada si la hay
@@ -215,18 +218,17 @@ public class MenuEquipo extends SeccionMenu {
 		DibujoDebug.dibujarRectanguloContorno(g, panel);
 		DibujoDebug.dibujarRectanguloRelleno(g, titularPanel);
 		g.setColor(Color.white);
-		DibujoDebug.dibujarString(g, nombrePanel,
-				new Point(titularPanel.x + titularPanel.width / 2
-						- MedidorStrings.medirAnchoPixeles(g, nombrePanel) / 2,
+		DibujoDebug.dibujarString(g, nombrePanel, new Point(
+				titularPanel.x + titularPanel.width / 2 - MedidorStrings.medirAnchoPixeles(g, nombrePanel) / 2,
 				titularPanel.y + titularPanel.height - MedidorStrings.medirAltoPixeles(g, nombrePanel) / 2 - 4));
 		g.setColor(new Color(0xff9cff33));
 	}
 
-    public Objeto obtenerObjetoSeleccionado() {
-        return objetoSeleccionado;
-    }
+	public Objeto obtenerObjetoSeleccionado() {
+		return objetoSeleccionado;
+	}
 
-    public void eliminarObjetoSeleccionado() {
-        objetoSeleccionado = null;
-    }
+	public void eliminarObjetoSeleccionado() {
+		objetoSeleccionado = null;
+	}
 }
