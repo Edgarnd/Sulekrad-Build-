@@ -15,8 +15,6 @@ public class EnPausa implements EstadoJuego {
 
 	public EnPausa(final SuperficieDibujo sd) {
 		this.sd = sd;
-
-		//
 	}
 
 	@Override

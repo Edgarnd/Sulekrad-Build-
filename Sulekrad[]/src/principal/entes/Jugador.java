@@ -1,6 +1,9 @@
 package principal.entes;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -9,13 +12,13 @@ import principal.ElementosPrincipales;
 import principal.control.GestorControles;
 import principal.herramientas.DibujoDebug;
 import principal.inventario.RegistroObjetos;
+import principal.inventario.armas.Arco;
 import principal.inventario.armas.Arma;
 import principal.inventario.armas.Desarmado;
-import principal.sonido.Sonido;
 import principal.sprites.HojaSprites;
 
 public class Jugador {
-	
+
 	private double posicionX;
 	private double posicionY;
 
@@ -55,9 +58,10 @@ public class Jugador {
 
 	private AlmacenEquipo ae;
 
-    private ArrayList<Rectangle> alcanceActual;
-    
-    public int puntos = 0;
+	private ArrayList<Rectangle> alcanceActual;
+
+	public int puntos = 0;
+	private Graphics g;
 
 	public Jugador() {
 		posicionX = ElementosPrincipales.mapa.obtenerPosicionInicial().getX();
@@ -76,36 +80,38 @@ public class Jugador {
 
 		ae = new AlmacenEquipo((Arma) RegistroObjetos.obtenerObjeto(599));
 
-        alcanceActual = new ArrayList<>();
+		alcanceActual = new ArrayList<>();
+
 	}
 
 	public void actualizar() {
-        cambiarHojaSprites();
+		cambiarHojaSprites();
 		gestionarVelocidadResistencia();
 		cambiarAnimacionEstado();
 		enMovimiento = false;
 		determinarDireccion();
 		animar();
-        actualizarArmas();
+		actualizarArmas();
+
 	}
-	
-    private void actualizarArmas() {
-        if (ae.obtenerArma1() instanceof  Desarmado) {
-            return;
-        }
-        calcularAlcanceAtaque();
-        ae.obtenerArma1().actualizar();
-    }
 
-    private void calcularAlcanceAtaque() {
-        alcanceActual = ae.obtenerArma1().obtenerAlcance(this);
-    }
+	private void actualizarArmas() {
+		if (ae.obtenerArma1() instanceof Desarmado) {
+			return;
+		}
+		calcularAlcanceAtaque();
+		ae.obtenerArma1().actualizar();
+	}
 
-    private void cambiarHojaSprites() {
-        if (ae.obtenerArma1() instanceof  Arma && !(ae.obtenerArma1() instanceof Desarmado)) {
-            hs = new HojaSprites(Constantes.RUTA_PERSONAJE_PISTOLA, Constantes.LADO_SPRITE, false);
-        }
-    }
+	private void calcularAlcanceAtaque() {
+		alcanceActual = ae.obtenerArma1().obtenerAlcance(this);
+	}
+
+	private void cambiarHojaSprites() {
+		if (ae.obtenerArma1() instanceof Arma && !(ae.obtenerArma1() instanceof Desarmado)) {
+			hs = new HojaSprites(Constantes.RUTA_PERSONAJE_PISTOLA, Constantes.LADO_SPRITE, false);
+		}
+	}
 
 	private void gestionarVelocidadResistencia() {
 		if (GestorControles.teclado.corriendo && resistencia > 0) {
@@ -249,15 +255,14 @@ public class Jugador {
 			int origenX = area.x;
 			int origenY = area.y + velocidadY * (int) velocidad + 3 * (int) velocidad;
 
-			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width,
-					area.height);
+			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
 
 			if (LIMITE_ARRIBA.intersects(areaFutura)) {
 				return true;
 			}
 		}
 
-		return false;		
+		return false;
 	}
 
 	private boolean enColisionAbajo(int velocidadY) {
@@ -267,8 +272,7 @@ public class Jugador {
 			int origenX = area.x;
 			int origenY = area.y + velocidadY * (int) velocidad - 3 * (int) velocidad;
 
-			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width,
-					area.height);
+			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
 
 			if (LIMITE_ABAJO.intersects(areaFutura)) {
 				return true;
@@ -285,8 +289,7 @@ public class Jugador {
 			int origenX = area.x + velocidadX * (int) velocidad + 3 * (int) velocidad;
 			int origenY = area.y;
 
-			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width,
-					area.height);
+			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
 
 			if (LIMITE_IZQUIERDA.intersects(areaFutura)) {
 				return true;
@@ -303,8 +306,7 @@ public class Jugador {
 			int origenX = area.x + velocidadX * (int) velocidad - 3 * (int) velocidad;
 			int origenY = area.y;
 
-			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width,
-					area.height);
+			final Rectangle areaFutura = new Rectangle(origenX, origenY, area.width, area.height);
 
 			if (LIMITE_DERECHA.intersects(areaFutura)) {
 				return true;
@@ -361,19 +363,21 @@ public class Jugador {
 		final int centroY = Constantes.ALTO_JUEGO / 2 - Constantes.LADO_SPRITE / 2;
 
 		DibujoDebug.dibujarImagen(g, imagenActual, centroX, centroY);
-		
-		/*
-        if (!alcanceActual.isEmpty()) {
-            g.setColor(Color.red);
-            dibujarAlcance(g);
-        }
-        */
-        //DibujoDebug.dibujarString(g, posicionX + "-" + posicionY,  centroX, centroY - 8);
+
+		if (GestorControles.teclado.atacando && obtenerAlmacenEquipo().obtenerArma1() instanceof Arco) {
+			g.setColor(new Color(150, 75, 0));
+			dibujarAlcance(g);
+
+		}
+
+		// DibujoDebug.dibujarString(g, posicionX + "-" + posicionY, centroX, centroY -
+		// 8);
+
 	}
 
-    private void dibujarAlcance(final Graphics g) {
-        DibujoDebug.dibujarRectanguloRelleno(g, alcanceActual.get(0));
-    }
+	private void dibujarAlcance(final Graphics g) {
+		DibujoDebug.dibujarRectanguloRelleno(g, alcanceActual.get(0));
+	}
 
 	public void establecerPosicionX(double posicionX) {
 		this.posicionX = posicionX;
@@ -415,19 +419,19 @@ public class Jugador {
 		return LIMITE_ARRIBA;
 	}
 
-    public AlmacenEquipo obtenerAlmacenEquipo() {
-        return ae;
-    }
+	public AlmacenEquipo obtenerAlmacenEquipo() {
+		return ae;
+	}
 
-    public int obtenerDireccion() {
-        return direccion;
-    }
-    
-    public Point obtenerPosicion() {
-    	return new Point((int)posicionX, (int)posicionY);
-    }
-    
-    public ArrayList<Rectangle> obtenerAlcanceActual() {
-    	return  alcanceActual;
-    }
+	public int obtenerDireccion() {
+		return direccion;
+	}
+
+	public Point obtenerPosicion() {
+		return new Point((int) posicionX, (int) posicionY);
+	}
+
+	public ArrayList<Rectangle> obtenerAlcanceActual() {
+		return alcanceActual;
+	}
 }
